@@ -1,0 +1,22 @@
+Skapa funktionalitet för att hämta bokkategorier och deras URL:er:
+•	Hämta alla bokkategorier och deras respektive URL:er från webbplatsen.
+•	Spara dessa kategorier och URL:er i en JSON-fil.
+Hämta URL för en specifik kategori:
+•	Använd den sparade JSON-filen där du har kategorier och dessa url:er för att hämta URL:en till den kategori som ska webscrapas.
+Webscraping av böcker i en kategori:
+•	Hämta alla böcker i den angivna kategorin från webbplatsen.
+•	Spara den scrapade datan om alla böcker i en JSON-fil med dagens datum tex history_280201.json
+Använd befintlig JSON-fil om den finns:
+•	Om bokinformationen för en visa kategori redan finns sparad i en JSON-fil  med dagen datum för en viss kategori, använd den filen istället för att webscrapa för hämta informationen igen.
+
+
+
+Lagring i JSON-filer:
+•	Data ska lagras i JSON-filer med strukturen kategorinamn_dagensdatum.json.
+•	Bokens data ska inkludera minst titel, pris och betyg. Funder på om du behöver ett id för varje bok för att underlätta för crud-operation
+Prissättning i svenska kronor:
+•	Priset ska även sparas i svenska kronor.
+•	Använd web scraping för att hämta växelkursen från en växelkurswebbplats.
+•	Beräkna och konvertera priset från pund till kronor baserat på den aktuella växelkursen.
+Användning av reguljära uttryck:
+•	Använd reguljära uttryck för att ta bort konstiga tecken framför priset, till exempel Â£45.17.
