@@ -16,7 +16,7 @@ def get_all_books():
     if response.status_code != 200:
         return jsonify({"error": "Fel, gick inte att hämta data"}), response.status_code # returnerar ett error om det inte gick att hämta data
 
-    # Skapa ett soup-objekt med response.text data
+    # Skapa ett BeautifulSoup-objekt med response.text data, använd html-parser
     soup = BeautifulSoup(response.text, "html.parser")
 
     # Hämta alla boktitlar
