@@ -153,10 +153,11 @@ def get_all_categories():
 
 @app.route("/api/v1/books/<category>", methods=["GET"])
 def get_books(category):
-    category = category.lower()
+    category = category.replace("%20", " ").lower()
 
     date = datetime.datetime.now().strftime("%y%m%d")
     expr = f"{category}_{date}.json"
+    print(f"'{expr}'")
 
     if os.path.exists(expr):
         try:
@@ -180,7 +181,7 @@ def get_books(category):
                 else:
                     categories = json.loads(file_data)
         except (FileNotFoundError, json.JSONDecodeError):
-            return jsonify({"error": f"Kunde inte hämta kategorier"}), 400
+            return jsonify({"error": "Kunde inte hämta kategorier"}), 400
 
 
         try:
@@ -230,7 +231,7 @@ def get_books(category):
         file_name = f"{category}_{date}.json"
 
         try:
-            with open(file_name, "w") as file_obj:
+            with open(file_name, "w", encoding="utf-8") as file_obj:
                 json.dump(book_dict, file_obj, ensure_ascii=False, indent=4)
             return jsonify({"books": book_dict})
         except (FileNotFoundError, json.JSONDecodeError):
@@ -250,6 +251,7 @@ def add_book(category):
             return jsonify({"Error": "Wrong input"}), 400
 
         date = datetime.datetime.now().strftime("%y%m%d")
+        category = category.replace("%20", " ").lower()
         expr = f"{category}_{date}.json"
 
         # Försöker öppna filen ------
@@ -299,6 +301,7 @@ def update_book(category):
             return jsonify({"Error": "Wrong input"}), 400
 
         date = datetime.datetime.now().strftime("%y%m%d")
+        category = category.replace("%20", " ").lower()
         expr = f"{category}_{date}.json"
 
         # Försöker öppna filen ------
@@ -348,6 +351,7 @@ def delete_book(category):
             return jsonify({"Error": "Wrong input"}), 400
 
         date = datetime.datetime.now().strftime("%y%m%d")
+        category = category.replace("%20", " ").lower()
         expr = f"{category}_{date}.json"
 
         # Försöker öppna filen ------
@@ -408,6 +412,7 @@ def delete_category():
     except(FileNotFoundError, json.JSONDecodeError):
         category_dict = {}
 
+
     if category in category_dict:
         del category_dict[category]
 
@@ -433,5 +438,5 @@ def delete_category():
     return jsonify({"success": f"Kategorin {category} har tagits bort"}), 200
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
 
