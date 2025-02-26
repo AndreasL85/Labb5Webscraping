@@ -10,7 +10,7 @@ website_url = "https://books.toscrape.com/"
 
 app = Flask(__name__)
 
-@app.route("/api/v1/books", methods=["PUT"])
+@app.route("/api/v1/category", methods=["PUT"])
 def update_category():
     try:
         link = request.json["link"]
@@ -53,7 +53,7 @@ def update_category():
     return jsonify({"success": "Kategorin har blivit uppdaterad"}), 200
 
 
-@app.route("/api/v1/books", methods=["POST"])
+@app.route("/api/v1/category", methods=["POST"])
 def add_category():
     try:
         link = request.json["link"]
@@ -95,7 +95,7 @@ def add_category():
     #
     return jsonify({"success": "Kategorin har blivit tillagd"}), 200
 
-@app.route("/api/v1/books", methods=["GET"])
+@app.route("/api/v1/category", methods=["GET"])
 def get_all_categories():
 
     if os.path.exists("categories.json"):
@@ -151,7 +151,7 @@ def get_all_categories():
         except requests.RequestException:  # om det blir ett okänt fel
             return jsonify({"error": "Fel, okänt fel inträffade"}), 400
 
-@app.route("/api/v1/books/<category>", methods=["GET"])
+@app.route("/api/v1/category/<category>", methods=["GET"])
 def get_books(category):
     category = category.replace("%20", " ").lower()
 
@@ -237,7 +237,7 @@ def get_books(category):
         except (FileNotFoundError, json.JSONDecodeError):
             return jsonify({"error": "Fel, gick inte att hämta data"}), 400
 
-@app.route("/api/v1/books/<category>", methods=["POST"])
+@app.route("/api/v1/category/<category>", methods=["POST"])
 def add_book(category):
     try:
         link = request.json["link"]
@@ -287,7 +287,7 @@ def add_book(category):
     #
     return jsonify({"success": "Book has been added"}), 200
 
-@app.route("/api/v1/books/<category>", methods=["PUT"])
+@app.route("/api/v1/category/<category>", methods=["PUT"])
 def update_book(category):
     try:
         unique_id = request.json["id"]
@@ -340,7 +340,7 @@ def update_book(category):
     #
     return jsonify({"success": f"Boken {title} har uppdaterats"}), 200
 
-@app.route("/api/v1/books/<category>", methods=["DELETE"])
+@app.route("/api/v1/category/<category>", methods=["DELETE"])
 def delete_book(category):
     category = category.lower()
     try:
@@ -389,7 +389,7 @@ def delete_book(category):
 
 
 
-@app.route("/api/v1/books", methods=["DELETE"])
+@app.route("/api/v1/category", methods=["DELETE"])
 def delete_category():
     try:
         category = request.json["category"].lower()
