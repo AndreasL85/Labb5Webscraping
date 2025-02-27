@@ -18,7 +18,7 @@ def update_category():
     try:
         # Försöker hämta data från request.json
         link = request.json["link"]
-        category = request.json["category"]
+        category = request.json["category"].lower()
 
         # Om det inte finns någon data, returnera ett felmeddelande
         if not link or not category:
