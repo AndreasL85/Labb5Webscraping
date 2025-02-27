@@ -160,7 +160,7 @@ def get_all_categories():
             except (FileNotFoundError, json.JSONDecodeError):
                 return jsonify({"error": "Oväntat fel, kunde inte läsa data"}), 400
 
-            # Returnera book_dict
+            # Returnera category_dict
             return jsonify({"categories": category_dict})
 
         # Felhantering för requests
