@@ -333,7 +333,7 @@ def add_book(category):
 
     # Om filen inte finns eller om det är fel på json data, skapa en tom dictionary
     except(FileNotFoundError, json.JSONDecodeError):
-        return jsonify({"error": f"Det finns ingen kategori {category} att lägga till boken i"}), 400
+        book_dict = {}
 
     # Om boken redan existerar i dictionary
     if unique_id in book_dict:
